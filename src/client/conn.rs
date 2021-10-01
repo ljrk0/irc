@@ -130,6 +130,7 @@ impl Connection {
             let domain = format!("{}", config.server()?);
             info!("Connecting via SSL to {}.", domain);
             let mut builder = TlsConnector::builder();
+            builder.danger_accept_invalid_hostnames(true);
             if let Some(cert_path) = config.cert_path() {
                 let mut file = File::open(cert_path)?;
                 let mut cert_data = vec![];
